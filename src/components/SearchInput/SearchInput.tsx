@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
+import s from './SearchInput.module.scss'
 
 interface Props {
   initialQuery?: string;
   filters?: Array<Record<string, string>>; // TODO: If we end up with filters, we can type this better
 }
 
-const Input: FC<Props> = ({ initialQuery = "", filters = [] }) => {
+const SearchInput: FC<Props> = ({ initialQuery = "", filters = [] }) => {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
 
@@ -16,6 +17,7 @@ const Input: FC<Props> = ({ initialQuery = "", filters = [] }) => {
 
   return (
     <form
+      className={s.searchInput}
       onSubmit={(e) => {
         console.log("submitting");
         e.preventDefault();
@@ -34,4 +36,4 @@ const Input: FC<Props> = ({ initialQuery = "", filters = [] }) => {
   );
 };
 
-export default Input;
+export default SearchInput;

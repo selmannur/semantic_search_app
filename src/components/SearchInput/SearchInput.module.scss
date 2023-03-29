@@ -1,0 +1,12 @@
+.searchInput {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  input {
+    padding: $pd-s;
+    border: 1px solid $grey;
+    border-radius: 4px;
+    width: 80%;
+  }
+}

@@ -1,34 +1,22 @@
-import Input from "@/components/Input";
-import Page from "@/components/Page";
+import SearchInput from "@/components/SearchInput";
+import Page from "@/components/Page/Page";
 import { Publications } from "@/types";
 import { getQueryValueAsString } from "@/utils/parseRouterQuery";
-import { callApi } from "@/utils/callApi";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-
-const fetchResults = async (query: string): Promise<Publications> => {
-  console.log("fetching results");
-  try {
-    return await callApi<Publications>("/api/search", {
-      method: "POST",
-      body: JSON.stringify({ query }),
-    });
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
-};
+import { fetchSearchResults } from "./utils";
 
 const ResultsPage = () => {
-  const { query } = useRouter();
+  const router = useRouter();
+
   const [paramQuery, setParamQuery] = useState(
-    getQueryValueAsString(query, "q")
+    getQueryValueAsString(router.query, "q")
   );
   const [results, setResults] = useState<Publications>([]);
 
   useEffect(() => {
-    setParamQuery(getQueryValueAsString(query, "q"));
-  }, [query]);
+    setParamQuery(getQueryValueAsString(router.query, "q"));
+  }, [router.query]);
 
   useEffect(() => {
     if (!paramQuery) {
@@ -37,12 +25,12 @@ const ResultsPage = () => {
       return;
     }
 
-    fetchResults(paramQuery).then((d) => setResults(d));
+    fetchSearchResults(paramQuery).then((d) => setResults(d));
   }, [paramQuery]);
 
   return (
     <Page>
-      <Input initialQuery={paramQuery} />
+      <SearchInput initialQuery={paramQuery} />
       <div>
         {results.map((publication) => (
           <p key={publication.id}>{JSON.stringify(publication)}</p>

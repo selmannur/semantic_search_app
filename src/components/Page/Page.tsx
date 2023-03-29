@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
-import Head from "./Head";
-import s from "@styles/Page.module.scss";
+import s from "./Page.module.scss";
+import Head from "../Head";
 
 const Page: FC<PropsWithChildren> = ({ children }) => (
   <>
