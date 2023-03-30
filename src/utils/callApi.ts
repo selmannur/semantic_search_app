@@ -9,8 +9,8 @@ export const callApi = async <Response>(
   }
 
   return fetch(url, config)
-    .then((response) => response.json() as Promise<{ data: Response }>)
-    .then(({ data }) => data)
+    .then((res) => res.json())
+    .then((data) => data as Response)
     .catch((error) => {
       throw new Error(error);
     });

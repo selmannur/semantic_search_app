@@ -1,16 +1,20 @@
-import { Publications } from "@/types";
 import { callApi } from "@/utils/callApi";
+import { SearchResponse } from "../api/search";
 
 export const fetchSearchResults = async (
   query: string
-): Promise<Publications> => {
+): Promise<SearchResponse> => {
   try {
-    return await callApi<Publications>("/api/search", {
+    return await callApi<SearchResponse>("/api/search", {
       method: "POST",
       body: JSON.stringify({ query }),
     });
   } catch (e) {
     console.error(e);
-    return [];
+    return {
+      query: { query: "" },
+      n_items: 0,
+      items: [],
+    };
   }
 };

@@ -4,27 +4,27 @@ import { Publication } from "@/types";
 import Image from "next/image";
 import previewArrow from "../../assets/preview-arrow.svg";
 
-type Props = Pick<Publication, "id" | "title"> &
-  Pick<DOMAttributes<HTMLDivElement>, "onMouseEnter" | "onMouseLeave"> & {
+type Props = Pick<Publication, "publicationUid" | "title"> &
+  Pick<DOMAttributes<HTMLDivElement>, "onMouseEnter"> & {
     hoveredId: string | null;
   };
 
 const Result: FC<Props> = ({
-  id,
+  publicationUid,
   title,
   hoveredId,
   onMouseEnter,
-  onMouseLeave,
 }) => {
   return (
     <div
       className={s.result}
       onMouseEnter={onMouseEnter}
-      onMouseDownCapture={onMouseLeave}
       onClick={onMouseEnter}
     >
       <p>{title}</p>
-      {hoveredId === id && <Image src={previewArrow} alt="preview arrow" />}
+      {hoveredId === publicationUid && (
+        <Image src={previewArrow} alt="preview arrow" />
+      )}
     </div>
   );
 };

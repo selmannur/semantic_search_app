@@ -1,3 +1,11 @@
 .preview {
-  // TODO: implement some UI
+  width: 100%;
+
+  .date {
+    margin-bottom: $pd-l;
+  }
+
+  .title {
+    margin-bottom: $pd-s;
+  }
 }

@@ -18,12 +18,12 @@ const generateJournals = () => {
 };
 
 export const generatePublication = (): Publication => ({
-  id: faker.datatype.uuid(),
+  publicationUid: faker.datatype.uuid(),
   title: faker.commerce.productName(),
   abstract: faker.commerce.productDescription(),
   authors: generateAuthors(),
   journals: generateJournals(),
-  date: faker.datatype.datetime().toUTCString(),
+  date: faker.datatype.datetime().toISOString(),
   url: faker.internet.url(),
   score: Math.round(Math.random() * 100),
 });

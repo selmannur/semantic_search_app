@@ -1,24 +1,48 @@
-import { generatePublications } from "./../../fakes/publications";
-import { Publications } from "@/types";
+// import { generatePublications } from "./../../fakes/publications";
+import { Publication } from "@/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  data: Publications;
-  error?: string;
+const QUERY_ENDPOINT = "http://cmpt-4.tor.rgcloud.net:8090/query";
+
+type Query = {
+  query: string;
 };
 
-export default function handler(
+export type SearchResponse = {
+  query: Query;
+  n_items: number;
+  items: Publication[];
+};
+
+export type InternalError = {
+  error: string;
+};
+
+const makeQuery = async (query: string) => {
+  const res = await fetch(QUERY_ENDPOINT, {
+    method: "POST",
+    headers: new Headers({
+      accept: "application/json",
+      "Content-Type": "application/json",
+    }),
+    body: JSON.stringify({ query }),
+  });
+
+  const data = (await res.json()) as SearchResponse;
+  return data;
+};
+
+const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+  res: NextApiResponse<SearchResponse | InternalError>
+) => {
   const { query } = JSON.parse(req.body || '{ query: ""}') as { query: string };
   if (!query || typeof query !== "string") {
-    res.status(400).json({ data: [], error: "Incorrect query" });
+    res.status(400).json({ error: "Incorrect query" });
   }
 
-  console.log("query received:", query);
+  const data = await makeQuery(query);
+  res.status(200).json(data);
+};
 
-  // send query to Vectorization Api and wait for the respond
-
-  res.status(200).json({ data: generatePublications() });
-}
+export default handler;

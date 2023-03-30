@@ -31,7 +31,7 @@ const SearchInput: FC<Props> = ({ initialQuery = "", filters = [] }) => {
     >
       <input
         type="text"
-        placeholder="Type type type..." // TODO: Maybe another placeholder?
+        placeholder="What do you like to know?" // TODO: Maybe another placeholder?
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

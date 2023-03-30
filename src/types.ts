@@ -1,11 +1,11 @@
 export type Publication = {
-  id: string;
+  publicationUid: string;
   title: string;
   date: string;
+  type: string;
   abstract: string;
-  authors: string;
-  journals: string;
-  url: string;
+  authors?: string;
+  journal?: string;
   score: number;
 };
 
