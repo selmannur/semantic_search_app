@@ -1,12 +1,28 @@
-// colors
-$grey: grey;
+// fonts
+$inter: var(--inter);
+$manrope: var(--manrope);
 
+// colors
+$white: rgba(255, 255, 255, 1);
+$grey50: rgba(250, 250, 250, 1);
+$grey200: rgba(221, 221, 221, 1);
+$blue500: rgba(62, 64, 247, 1);
 
 // paddings
-$pd-xxs: 2px;
-$pd-xs: 4px;
-$pd-s: 8px;
-$pd-m: 16px;
+$pd-xxxs: 2px;
+$pd-xxs: 4px;
+$pd-xs: 8px;
+$pd-s: 16px;
+$pd-m: 24px;
+$pd-l: 32px;
+$pd-xl: 40px;
+$pd-xxl: 48px;
+$pd-xxxl: 64px;
 
 // font-sizes
-$fs-m: 16px;
+$fs-s: 16px;
+$fs-m: 24px;
+$fs-xl: 40px;
+
+// line-heights
+$lh-xl: 60px;

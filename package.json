@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextcss/reset": "^0.2.4-beta",
     "@types/lodash": "^4.14.192",
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",

@@ -1,0 +1,12 @@
+.result {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  padding: $pd-m;
+  margin: $pd-xs 0;
+
+  p {
+    font-weight: 700;
+  }
+}

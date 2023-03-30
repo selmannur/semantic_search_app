@@ -1,12 +1,27 @@
 .searchInput {
   width: 100%;
+  // max-width: 714px;
   display: flex;
   justify-content: center;
 
-  input {
+  input[type="text"] {
     padding: $pd-s;
-    border: 1px solid $grey;
-    border-radius: 4px;
-    width: 80%;
+    border: 1px solid $grey200;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $grey200;
+
+    &:focus {
+      outline: 0;
+      border-bottom: 1px solid $blue500;
+    }
+  }
+
+  button[type="submit"] {
+    border: none;
+    background-color: transparent;
+    margin-left: -$pd-xxs;
+    transform: translateX(-100%);
   }
 }

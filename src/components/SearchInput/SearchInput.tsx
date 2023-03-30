@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
-import s from './SearchInput.module.scss'
+import s from "./SearchInput.module.scss";
+import Image from "next/image";
+import mag from "../../assets/mag.svg";
 
 interface Props {
   initialQuery?: string;
@@ -29,9 +31,13 @@ const SearchInput: FC<Props> = ({ initialQuery = "", filters = [] }) => {
     >
       <input
         type="text"
+        placeholder="Type type type..." // TODO: Maybe another placeholder?
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
+      <button type="submit">
+        <Image src={mag} alt="magnifier icon" />
+      </button>
     </form>
   );
 };

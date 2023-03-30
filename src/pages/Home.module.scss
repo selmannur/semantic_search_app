@@ -1,0 +1,23 @@
+.home {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  transform: translateY(-10%);
+
+  h1 {
+    padding-bottom: $pd-m;
+  }
+
+  h5 {
+    padding-bottom: $pd-xl;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 714px;
+  max-width: 90%;
+}
