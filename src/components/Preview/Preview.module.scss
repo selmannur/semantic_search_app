@@ -1,16 +1,18 @@
 .preview {
   width: 100%;
 
-  .pinLine {
-    margin-bottom: $pd-xxl; 
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .meta {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-top: $pd-xxl;
     margin-bottom: $pd-m;
+    width: 100%;
+
+    & > div {
+      display: flex;
+      align-items: center;
+    }
 
     .badge {
       margin-right: $pd-m;
@@ -39,12 +41,12 @@
     margin-top: $pd-m;
     font-size: $fs-xxs;
 
-    .statSeperator{
+    .statSeperator {
       margin: 0 $pd-xs;
     }
   }
 
-  .button {
+  .link {
     margin-top: $pd-xxl;
   }
 }

@@ -1,6 +1,14 @@
 .badge {
   font-size: $fs-xxs;
   padding: $pd-xxs $pd-xs;
+  width: fit-content;
   height: fit-content;
-  background-color: $blue50;
+  background-color: $blue500;
+  color: $white;
+  min-width: 38px;
+}
+
+.pin {
+  border-radius: 16px;
+  padding: $pd-xxs $upd-s;
 }

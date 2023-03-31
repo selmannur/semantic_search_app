@@ -1,0 +1,13 @@
+.dateFilter {
+  position: relative;
+  background-color: $white;
+  width: fit-content;
+
+  select {
+    background-color: $white;
+  }
+
+  option {
+    background-color: $white;
+  }
+}

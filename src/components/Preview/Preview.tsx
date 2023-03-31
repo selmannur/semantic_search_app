@@ -6,8 +6,7 @@ import Badge from "../Badge/Badge";
 import Image from "next/image";
 import authorsIcon from "../../assets/authors.svg";
 import { isArray, isNumber } from "lodash";
-import Button from "../Button/Button";
-import Pin from "../Pin";
+import ExternalLink from "../ExternalLink";
 
 interface Props {
   publication: Publication | null;
@@ -30,17 +29,19 @@ const Preview: FC<Props> = ({ publication }) => {
 
   return (
     <div className={s.preview}>
-      {score && (
-        <div className={s.pinLine}>
-          <Pin>{score}</Pin>
-        </div>
-      )}
-
       <div className={s.meta}>
-        {type && <Badge text={type} classes={s.badge} />}
-        {date && <p>{parsePublicationDate(date)}</p>}
-        {journal && <p>{journal}</p>}
+        <div>
+          {type && (
+            <div className={s.badge}>
+              <Badge text={type} type="badge" />
+            </div>
+          )}
+          {date && <p>{parsePublicationDate(date)}</p>}
+        </div>
+        <div>{score && <Badge text={`Score ${score}`} type="pin" />}</div>
       </div>
+
+      {journal && <p>{journal}</p>}
 
       <h1 className={s.title}>{title}</h1>
 
@@ -61,16 +62,12 @@ const Preview: FC<Props> = ({ publication }) => {
         </p>
       )}
 
-      <Button
-        classes={s.button}
-        onClick={() =>
-          window.open(
-            `https://www.researchgate.net/publication/${publicationUid}`
-          )
-        }
-      >
-        See publication page
-      </Button>
+      <div className={s.link}>
+        <ExternalLink
+          text="Go to publication page"
+          href={`https://www.researchgate.net/publication/${publicationUid}`}
+        />
+      </div>
     </div>
   );
 };

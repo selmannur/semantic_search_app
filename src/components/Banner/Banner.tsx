@@ -5,11 +5,15 @@ import logo from "../../assets/rg-text-logo.svg";
 import { useRouter } from "next/router";
 
 const Banner = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className={s.banner}>
-      <Image src={logo} alt="ResearchGate logo" onClick={() => router.push('/')} />
+      <Image
+        src={logo}
+        alt="ResearchGate logo"
+        onClick={() => router.push({ pathname: "/", query: {} })}
+      />
     </div>
   );
 };

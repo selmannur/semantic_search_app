@@ -10,6 +10,7 @@ import Result from "@/components/Result";
 import Preview from "@/components/Preview";
 import { isEmpty } from "lodash";
 import NoResults from "@/components/NoResults";
+import DateFilter from "@/components/DateFilter";
 
 const ResultsPage = () => {
   const router = useRouter();
@@ -17,6 +18,10 @@ const ResultsPage = () => {
   const [paramQuery, setParamQuery] = useState(
     getQueryValueAsString(router.query, "q")
   );
+  const [paramPublishedAfter, setParamPublishedAfter] = useState(
+    getQueryValueAsString(router.query, "published_after")
+  );
+  const [total, setTotal] = useState<number>(0) 
   const [results, setResults] = useState<Publication[]>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [previewResult, setPreviewResult] = useState<Publication | null>(null);
@@ -39,25 +44,37 @@ const ResultsPage = () => {
 
   useEffect(() => {
     setParamQuery(getQueryValueAsString(router.query, "q"));
+    setParamPublishedAfter(
+      getQueryValueAsString(router.query, "published_after")
+    );
   }, [router.query]);
 
   useEffect(() => {
     if (!paramQuery) {
+      setTotal(0)
       setResults([]);
       return;
     }
 
-    fetchSearchResults(paramQuery).then((data) => {
+    fetchSearchResults({
+      query: paramQuery,
+      publishedAfter: paramPublishedAfter || "",
+    }).then((data) => {
       console.log("fetched data: ", data);
+      setTotal(data.n_items)
       setResults(data.items || []);
     });
-  }, [paramQuery]);
+  }, [paramQuery, paramPublishedAfter]);
 
   return (
     <Page>
       <div className={s.search}>
         <div className={s.column}>
           <SearchInput initialQuery={paramQuery} />
+          <div className={s.filters}>
+            <p>About {total} items</p>
+            <DateFilter />
+          </div>
           {noResults ? (
             <div className={s.noResults}>
               <NoResults />

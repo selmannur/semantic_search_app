@@ -6,10 +6,9 @@ import mag from "../../assets/mag.svg";
 
 interface Props {
   initialQuery?: string;
-  filters?: Array<Record<string, string>>; // TODO: If we end up with filters, we can type this better
 }
 
-const SearchInput: FC<Props> = ({ initialQuery = "", filters = [] }) => {
+const SearchInput: FC<Props> = ({ initialQuery = "" }) => {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
 
@@ -21,17 +20,16 @@ const SearchInput: FC<Props> = ({ initialQuery = "", filters = [] }) => {
     <form
       className={s.searchInput}
       onSubmit={(e) => {
-        console.log("submitting");
         e.preventDefault();
         router.push({
           pathname: "/search",
-          query: { q: query },
+          query: { ...router.query, q: query },
         });
       }}
     >
       <input
         type="text"
-        placeholder="What do you like to know?" // TODO: Maybe another placeholder?
+        placeholder="Ask a question like you would ask to a colleague" // TODO: Maybe another placeholder?
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

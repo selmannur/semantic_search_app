@@ -1,10 +1,7 @@
-import {
-  generatePublications,
-  generateSearchResponse,
-} from "./../../fakes/publications";
-// import { generatePublications } from "./../../fakes/publications";
+import { generateSearchResponse } from "./../../fakes/publications";
 import { Publication } from "@/types";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { SearchRequest } from "../search/utils";
 
 const QUERY_ENDPOINT = "http://cmpt-4.tor.rgcloud.net:8090/query";
 const { NODE_ENV, FETCH_FAKE_DATA } = process.env;
@@ -24,14 +21,14 @@ export type InternalError = {
   error: string;
 };
 
-const makeQuery = async (query: string) => {
+const makeQuery = async ({ query, publishedAfter = "" }: SearchRequest) => {
   const res = await fetch(QUERY_ENDPOINT, {
     method: "POST",
     headers: new Headers({
       accept: "application/json",
       "Content-Type": "application/json",
     }),
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, date_geq: publishedAfter }),
   });
 
   const data = (await res.json()) as SearchResponse;
@@ -42,16 +39,22 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<SearchResponse | InternalError>
 ) => {
-  const { query } = JSON.parse(req.body || '{ query: ""}') as { query: string };
+  const { query, publishedAfter } = JSON.parse(
+    req.body || '{ query: "", publishedAfter: ""}'
+  ) as SearchRequest;
+  console.log('req.body', req.body)
+
   if (!query || typeof query !== "string") {
     res.status(400).json({ error: "Incorrect query" });
   }
 
   if (FAKE_DATA_ON) {
-    return res.status(200).json(generateSearchResponse(query));
+    return res
+      .status(200)
+      .json(generateSearchResponse({ query, publishedAfter }));
   }
 
-  const data = await makeQuery(query);
+  const data = await makeQuery({ query, publishedAfter });
   res.status(200).json(data);
 };
 

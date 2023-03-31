@@ -13,6 +13,21 @@
   overflow-y: auto;
 }
 
+.filters {
+  background-color: $white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $pd-xs $pd-s;
+
+
+  form {
+    padding-left: $pd-m;
+    border-left: 1px solid $grey200;
+  }
+}
+
 .noResults {
   margin-top: $pd-xxxxl;
 }
