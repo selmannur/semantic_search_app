@@ -2,10 +2,12 @@ export type Publication = {
   publicationUid: string;
   title: string;
   date: string;
-  type: string;
+  type?: string;
   abstract: string;
-  authors?: string;
+  authors?: string | string[];
   journal?: string;
+  reads?: number;
+  citations?: number;
   score: number;
 };
 

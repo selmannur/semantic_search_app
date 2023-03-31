@@ -1,11 +1,50 @@
 .preview {
   width: 100%;
 
-  .date {
-    margin-bottom: $pd-l;
+  .pinLine {
+    margin-bottom: $pd-xxl; 
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: $pd-m;
+
+    .badge {
+      margin-right: $pd-m;
+    }
+
+    p {
+      font-size: $fs-xs;
+      margin-right: $pd-m;
+    }
   }
 
   .title {
     margin-bottom: $pd-s;
+  }
+
+  .authors {
+    display: flex;
+    margin-top: $pd-m;
+
+    img {
+      margin-right: $upd-s;
+    }
+  }
+
+  .stats {
+    margin-top: $pd-m;
+    font-size: $fs-xxs;
+
+    .statSeperator{
+      margin: 0 $pd-xs;
+    }
+  }
+
+  .button {
+    margin-top: $pd-xxl;
   }
 }

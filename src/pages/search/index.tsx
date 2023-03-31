@@ -9,6 +9,7 @@ import s from "./Search.module.scss";
 import Result from "@/components/Result";
 import Preview from "@/components/Preview";
 import { isEmpty } from "lodash";
+import NoResults from "@/components/NoResults";
 
 const ResultsPage = () => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const ResultsPage = () => {
   const [results, setResults] = useState<Publication[]>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [previewResult, setPreviewResult] = useState<Publication | null>(null);
+  const noResults = paramQuery && isEmpty(results);
 
   useEffect(() => {
     if (isEmpty(results)) {
@@ -54,24 +56,30 @@ const ResultsPage = () => {
   return (
     <Page>
       <div className={s.search}>
-        <div className={s.leftColumn}>
-          <div className={s.input}>
-            <SearchInput initialQuery={paramQuery} />
-          </div>
-          <div className={s.results}>
-            {results.map((p) => (
+        <div className={s.column}>
+          <SearchInput initialQuery={paramQuery} />
+          {noResults ? (
+            <div className={s.noResults}>
+              <NoResults />
+            </div>
+          ) : (
+            results.map((p) => (
               <Result
                 key={p.publicationUid}
-                title={p.title}
-                publicationUid={p.publicationUid}
+                publication={p}
                 hoveredId={hoveredId}
                 onMouseEnter={() => setHoveredId(p.publicationUid)}
               />
-            ))}
-          </div>
+            ))
+          )}
         </div>
 
-        <div className={s.rightColumn}>
+        <div
+          className={s.column}
+          style={{
+            backgroundColor: Boolean(previewResult) ? "white" : "transparent",
+          }}
+        >
           {previewResult && (
             <div className={s.preview}>
               <Preview publication={previewResult} />

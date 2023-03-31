@@ -1,7 +1,13 @@
 import React, { FC } from "react";
 import s from "./Preview.module.scss";
 import { Publication } from "@/types";
-import { parseISO, format } from "date-fns";
+import { parsePublicationDate } from "@/utils/publication";
+import Badge from "../Badge/Badge";
+import Image from "next/image";
+import authorsIcon from "../../assets/authors.svg";
+import { isArray, isNumber } from "lodash";
+import Button from "../Button/Button";
+import Pin from "../Pin";
 
 interface Props {
   publication: Publication | null;
@@ -9,15 +15,62 @@ interface Props {
 const Preview: FC<Props> = ({ publication }) => {
   if (!publication) return null;
 
-  const { title, abstract, date } = publication;
-  const formattedDate = format(parseISO(date), "MMMM yyyy");
+  const {
+    publicationUid,
+    title,
+    type,
+    abstract,
+    date,
+    journal,
+    authors,
+    reads,
+    citations,
+    score,
+  } = publication;
 
-  //   TODO: Implement proper UI
   return (
     <div className={s.preview}>
-      <p className={s.date}>{formattedDate}</p>
+      {score && (
+        <div className={s.pinLine}>
+          <Pin>{score}</Pin>
+        </div>
+      )}
+
+      <div className={s.meta}>
+        {type && <Badge text={type} classes={s.badge} />}
+        {date && <p>{parsePublicationDate(date)}</p>}
+        {journal && <p>{journal}</p>}
+      </div>
+
       <h1 className={s.title}>{title}</h1>
+
       <p>{abstract}</p>
+
+      {authors && (
+        <div className={s.authors}>
+          <Image src={authorsIcon} alt="authors icon" />
+          <p>{isArray(authors) ? authors.join(", ") : authors}</p>
+        </div>
+      )}
+
+      {(reads || citations) && (
+        <p className={s.stats}>
+          {isNumber(reads) && <span>{reads} Reads</span>}
+          {isNumber(reads) && <span className={s.statSeperator}>·</span>}
+          {isNumber(citations) && <span>{citations} Citation</span>}
+        </p>
+      )}
+
+      <Button
+        classes={s.button}
+        onClick={() =>
+          window.open(
+            `https://www.researchgate.net/publication/${publicationUid}`
+          )
+        }
+      >
+        See publication page
+      </Button>
     </div>
   );
 };

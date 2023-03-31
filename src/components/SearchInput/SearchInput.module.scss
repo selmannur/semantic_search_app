@@ -3,18 +3,21 @@
   // max-width: 714px;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid $grey200;
+
+  &:has(input:focus) {
+    border-bottom: 1px solid $blue500;
+  }
 
   input[type="text"] {
-    padding: $pd-s;
+    padding: $pd-xs;
     border: 1px solid $grey200;
     width: 100%;
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid $grey200;
 
     &:focus {
       outline: 0;
-      border-bottom: 1px solid $blue500;
     }
   }
 

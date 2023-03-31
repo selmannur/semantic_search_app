@@ -1,0 +1,12 @@
+.pin {
+  padding: $pd-xxs $pd-xs;
+  border-radius: 16px;
+  font-size: $fs-xxs;
+  background-color: $green500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 38px;
+  width: fit-content;
+  height: fit-content;
+}

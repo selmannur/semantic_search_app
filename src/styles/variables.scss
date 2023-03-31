@@ -6,7 +6,9 @@ $manrope: var(--manrope);
 $white: rgba(255, 255, 255, 1);
 $grey50: rgba(250, 250, 250, 1);
 $grey200: rgba(221, 221, 221, 1);
+$blue50: rgba(239, 242, 248, 1);
 $blue500: rgba(62, 64, 247, 1);
+$green500: rgba(141, 168, 125, 1);
 
 // paddings
 $pd-xxxs: 2px;
@@ -18,8 +20,15 @@ $pd-l: 32px;
 $pd-xl: 40px;
 $pd-xxl: 48px;
 $pd-xxxl: 64px;
+$pd-xxxxl: 80px;
+
+// unusual paddings
+$upd-xs: 6px;
+$upd-s: 12px;
 
 // font-sizes
+$fs-xxs: 12px;
+$fs-xs: 14px;
 $fs-s: 16px;
 $fs-m: 24px;
 $fs-xl: 40px;

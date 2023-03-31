@@ -1,8 +1,14 @@
+import {
+  generatePublications,
+  generateSearchResponse,
+} from "./../../fakes/publications";
 // import { generatePublications } from "./../../fakes/publications";
 import { Publication } from "@/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const QUERY_ENDPOINT = "http://cmpt-4.tor.rgcloud.net:8090/query";
+const { NODE_ENV, FETCH_FAKE_DATA } = process.env;
+const FAKE_DATA_ON = NODE_ENV === "development" && FETCH_FAKE_DATA === "true";
 
 type Query = {
   query: string;
@@ -39,6 +45,10 @@ const handler = async (
   const { query } = JSON.parse(req.body || '{ query: ""}') as { query: string };
   if (!query || typeof query !== "string") {
     res.status(400).json({ error: "Incorrect query" });
+  }
+
+  if (FAKE_DATA_ON) {
+    return res.status(200).json(generateSearchResponse(query));
   }
 
   const data = await makeQuery(query);

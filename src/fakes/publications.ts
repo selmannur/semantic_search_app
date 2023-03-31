@@ -1,31 +1,27 @@
+import { SearchResponse } from "@/pages/api/search";
 import { Publication } from "../types";
 import { faker } from "@faker-js/faker";
+import { sample } from "lodash";
 
 const generateAuthors = () => {
   const numberOfAuthors = Math.round(Math.random() * 5);
   const authors = [...Array(numberOfAuthors)]
-    .map(() => faker.internet.userName())
+    .map(() => faker.name.fullName())
     .join(", ");
   return authors;
 };
 
-const generateJournals = () => {
-  const numberOfJournals = Math.round(Math.random() * 3);
-  const journals = [...Array(numberOfJournals)]
-    .map(() => faker.company.name())
-    .join(", ");
-  return journals;
-};
-
 export const generatePublication = (): Publication => ({
   publicationUid: faker.datatype.uuid(),
+  type: sample(["Book", "Article", "Review"]),
   title: faker.commerce.productName(),
-  abstract: faker.commerce.productDescription(),
+  abstract: faker.lorem.paragraphs(),
   authors: generateAuthors(),
-  journals: generateJournals(),
+  journal: faker.company.name(),
   date: faker.datatype.datetime().toISOString(),
-  url: faker.internet.url(),
   score: Math.round(Math.random() * 100),
+  reads: Math.round(Math.random() * 300),
+  citations: Math.round(Math.random() * 80),
 });
 
 export const generatePublications = (number?: number) => {
@@ -33,4 +29,13 @@ export const generatePublications = (number?: number) => {
     number = Math.round(Math.random() * 15);
   }
   return [...Array(number)].map(() => generatePublication());
+};
+
+export const generateSearchResponse = (query: string): SearchResponse => {
+  const publications = generatePublications();
+  return {
+    query: { query },
+    items: publications,
+    n_items: publications.length,
+  };
 };
